@@ -65,6 +65,3 @@ func IsValid(sudoku [9][9]int) bool {
 	return isValid
 }
 
-func Check_Square() {// i 
-	// check if the number is unique on a 3 by 3 square
-}
