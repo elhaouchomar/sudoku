@@ -7,6 +7,29 @@ import (
 	sudoku "sudoku/packages"
 )
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
+func isBlockValidForCoordinate(sudoku [9][9]int, row, col int) bool {
+	startRow := row - row%3
+	startCol := col - col%3
+	seen := make(map[int]bool)
+
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			num := sudoku[startRow+i][startCol+j]
+			if num != 0 {
+				if seen[num] {
+					return false // Number already seen in this block
+				}
+				seen[num] = true
+			}
+		}
+	}
+
+	return true // Block is valid
+}
+
+// //////////////////////////////////////////////////////////////////////////////////////
 func solveSudoku(board *[9][9]int, isValid func([9][9]int) bool) bool {
 	row, col := -1, -1
 	isEmpty := true
@@ -25,23 +48,24 @@ func solveSudoku(board *[9][9]int, isValid func([9][9]int) bool) bool {
 		}
 	}
 
-	// If no empty cell is left, return true if the board is valid
+	// If no empty cell it, return true if the board is valid
 	if isEmpty {
-		return isValid(*board)
+		return isValid(*board) && isBlockValidForCoordinate(*board, row, col) ////*
 	}
 	//here i should start solving the sudoku
 	// Try filling the cell with numbers 1 to 9
-///////////////////////////////// algoretm for back tracking /////////////////////////////
+	///////////////////////////////// algoretm for back tracking /////////////////////////////
 	for num := 1; num <= 9; num++ {
 		board[row][col] = num
-		if isValid(*board) && solveSudoku(board, isValid) {
+		if isValid(*board) && isBlockValidForCoordinate(*board, row, col) && solveSudoku(board, isValid) {
 			return true
 		}
 		board[row][col] = 0 // Backtrack
 	}
 	return false
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 func main() {
 	var line [9][9]int
 	arguments := os.Args[1:]
