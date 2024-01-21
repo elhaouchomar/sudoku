@@ -29,8 +29,9 @@ func solveSudoku(board *[9][9]int, isValid func([9][9]int) bool) bool {
 	if isEmpty {
 		return isValid(*board)
 	}
-	/////////////////////////////////////////////////////////////////////////////////////////// here i should start solving the sudoku
+	//here i should start solving the sudoku
 	// Try filling the cell with numbers 1 to 9
+///////////////////////////////// algoretm for back tracking /////////////////////////////
 	for num := 1; num <= 9; num++ {
 		board[row][col] = num
 		if isValid(*board) && solveSudoku(board, isValid) {
@@ -40,7 +41,7 @@ func solveSudoku(board *[9][9]int, isValid func([9][9]int) bool) bool {
 	}
 	return false
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 func main() {
 	var line [9][9]int
 	arguments := os.Args[1:]
