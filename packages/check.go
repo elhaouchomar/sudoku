@@ -13,7 +13,7 @@ package sub_Sudoku2
 
 }*/
 
-func Check_Square() {
+func Check_Square() {// i 
 	// check if the number is unique on a 3 by 3 square
 }
 
