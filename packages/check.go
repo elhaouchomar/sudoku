@@ -26,6 +26,29 @@ func ScanColumn(sudoku [9][9]int, column int) [9]int{
 	}
 	return columns
 }
+func Convert2DemArrayTo1DemArray(array [9][9]int,) {
+	line :=[9]int{}
+	index :=0
+	for row := 0; row < 3; row++ {
+		for col := 0; col < 3; col++ {
+			line[index] = array[row][col]
+		}
+	}
+}
+func Block_Sudoku(Square [9][9]int ,startRow int , startColumn int, Number int) bool {
+	count := 0
+	for row := startRow; row < 3 + startRow; row++ {
+		for col := startColumn; col < 3 + startColumn; col++ {
+			if Square[row][col] == Number {
+				count++
+			}
+			if count > 1 {
+				return false
+			}
+		}
+	}
+	return true
+}
 func IsValid(sudoku [9][9]int) bool {
 	isValid := true
 	for row := 0; row < 9; row++ {
