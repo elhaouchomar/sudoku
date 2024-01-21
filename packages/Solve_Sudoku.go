@@ -1,56 +1,15 @@
 package sudoku
 
 
-func Check_Line(line [9]int , number int , column int ) bool {
-	// check if the number is unique on the line 
-	for i := column + 1 ; i < 9 ; i++ {
-		if line[i] == number  {
-			return false
-		}
-	}
-	return true
-}
-
-func Check_Colone(column [9]int , number int , row int) bool {
-	// check if the number is unique in the colon 
-	for i := row + 1 ; i < 9 ; i++ {
-		if column[i] == number {
-			return false
-		}
-	}
-	return true
-}
-func ScanColumn(sudoku [9][9]int, column int) [9]int{
-	columns := [9]int{}
-	for i := 0; i < 9; i++ {
-		columns[i] = sudoku[i][column]
-	}
-	return columns
-}
-func IsValid(sudoku [9][9]int) bool {
-	isValid := true
-	for row := 0; row < 9; row++ {
-		for column := 0; column < 9; column++ {
-			Number := sudoku[row][column]
-			if Number != 0 {
-				isValid = (Check_Line(sudoku[row],Number,column) && Check_Colone(ScanColumn(sudoku,column),Number,row))
-				if isValid == false {
-					return false
-				}
-			}
-		}
-	}
-	return isValid
-}
-
 
 func Solve_Soduko(array [9][9]int, x int, y int) [9][9]int {
 	for j := 0; j < 9; j++ {
 		for i := 0; i < 9; i++ {
 			if array[i][j] == 0 {
-				for solution := 0o1; solution <= 9; solution++ {
+				for solution := 1; solution <= 9; solution++ {
 					array[i][j] = solution
 					if IsValid(array) {
+						Stro_Changes(i, j, solution)
 						break
 					} else {
 						continue
@@ -60,4 +19,22 @@ func Solve_Soduko(array [9][9]int, x int, y int) [9][9]int {
 		}
 	}
 	return array 
+}
+
+////////////////////////////////////////////////
+type Coordinate struct {
+	Row, Col int
+}
+ 
+func Stro_Changes(i int, j int, solution int) map[Coordinate]int {
+
+    changes := make(map[Coordinate]int)
+    changes[Coordinate{i, j}] = solution
+
+    return changes
+}
+//////////////////////////////////////////////
+
+func Back_Track(){
+
 }
