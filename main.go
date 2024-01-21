@@ -82,7 +82,11 @@ func main() {
 			// Print the solved Sudoku
 			for i := 0; i < 9; i++ {
 				for j := 0; j < 9; j++ {
-					fmt.Printf("%d ", line[i][j])
+					if j < 8 {
+						fmt.Printf("%d ", line[i][j])
+					} else {
+						fmt.Printf("%d", line[i][j])
+					}
 				}
 				fmt.Println()
 			}
